@@ -110,6 +110,13 @@ namespace Acumatica.Auth.Api
         #endregion
 
         #region Login
+
+        public int TestMe()
+        {
+            return 666;
+        }
+        
+        
         /// <summary>
         /// Logs in to the system. 
         /// </summary>
