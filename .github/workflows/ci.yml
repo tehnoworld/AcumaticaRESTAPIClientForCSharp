@@ -19,7 +19,7 @@ jobs:
         run: dotnet restore ./Acumatica\ REST\ API\ Client.sln
 
       - name: Building Solution
-        run: dotnet build ./Acumatica\ REST\ API\ Client.sln --no-restore
+        run: dotnet build ./Acumatica\ REST\ API\ Client.sln
 
       - name: Testing Solution
         run:  dotnet test .\RESTClientTests\RESTClientTests.csproj --no-restore
