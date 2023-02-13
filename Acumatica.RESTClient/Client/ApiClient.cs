@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Acumatica.RESTClient.Client
@@ -55,6 +56,7 @@ namespace Acumatica.RESTClient.Client
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Makes the asynchronous HTTP request.
         /// </summary>
@@ -67,12 +69,13 @@ namespace Acumatica.RESTClient.Client
         /// <param name="fileParams">File parameters.</param>
         /// <param name="pathParams">Path parameters.</param>
         /// <param name="contentType">Content type.</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The Task instance.</returns>
         public async Task<RestResponse> CallApiAsync(
             String path, Method method, List<KeyValuePair<String, String>> queryParams, Object postBody,
             Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
             Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
-            String contentType)
+            String contentType, CancellationToken cancellationToken = default)
         {
             if (Configuration.Token != null)
             {
@@ -89,7 +92,7 @@ namespace Acumatica.RESTClient.Client
 
             if (Configuration.RequestInterceptor != null)
                 Configuration.RequestInterceptor(request, this.RestClient);
-            var response = await RestClient.ExecuteAsync(request);
+            var response = await RestClient.ExecuteAsync(request, cancellationToken: cancellationToken);
             if (Configuration.ResponseInterceptor != null)
                 Configuration.ResponseInterceptor(request, response, this.RestClient);
 

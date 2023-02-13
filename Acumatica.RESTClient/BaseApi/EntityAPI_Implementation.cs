@@ -327,17 +327,19 @@ namespace Acumatica.RESTClient.Api
 		#endregion
 
 		#region Get
-		/// <summary>
-		/// Retrieves a record by the values of its key fields from the system. 
-		/// </summary>
-		/// <exception cref="ApiException">Thrown when fails to make API call</exception>
-		/// <param name="ids">The values of the key fields of the record.</param>
-		/// <param name="select">The fields of the entity to be returned from the system. (optional)</param>
-		/// <param name="filter">The conditions that determine which records should be selected from the system. (optional)</param>
-		/// <param name="expand">The linked and detail entities that should be expanded. (optional)</param>
-		/// <param name="custom">The fields that are not defined in the contract of the endpoint to be returned from the system. (optional)</param>
-		/// <returns>Task of ApiResponse (Entity)</returns>
-		protected async Task<ApiResponse<EntityType>> GetByKeysAsyncWithHttpInfo(IEnumerable<string> ids, string select = null, string filter = null, string expand = null, string custom = null)
+
+        /// <summary>
+        /// Retrieves a record by the values of its key fields from the system. 
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="ids">The values of the key fields of the record.</param>
+        /// <param name="select">The fields of the entity to be returned from the system. (optional)</param>
+        /// <param name="filter">The conditions that determine which records should be selected from the system. (optional)</param>
+        /// <param name="expand">The linked and detail entities that should be expanded. (optional)</param>
+        /// <param name="custom">The fields that are not defined in the contract of the endpoint to be returned from the system. (optional)</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Task of ApiResponse (Entity)</returns>
+        protected async Task<ApiResponse<EntityType>> GetByKeysAsyncWithHttpInfo(IEnumerable<string> ids, string select = null, string filter = null, string expand = null, string custom = null, CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'ids' is set
             if (ids == null)
@@ -348,7 +350,7 @@ namespace Acumatica.RESTClient.Api
             // make the HTTP request
             RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(localVarPath,
                 Method.Get, ComposeQueryParams(select, filter, expand, custom), null, ComposeAcceptHeaders(HeaderContentType.Json), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeIDsPathParams(ids), ComposeContentHeaders(HeaderContentType.None));
+                ComposeIDsPathParams(ids), ComposeContentHeaders(HeaderContentType.None), cancellationToken: cancellationToken);
 
             VerifyResponse<EntityType>(localVarResponse, "GetByKeys");
 
@@ -393,15 +395,16 @@ namespace Acumatica.RESTClient.Api
         /// <param name="custom">The fields that are not defined in the contract of the endpoint to be returned from the system. (optional)</param>
         /// <param name="skip">The number of records to be skipped from the list of returned records. (optional)</param>
         /// <param name="top">The number of records to be returned from the system. (optional)</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Task of ApiResponse (List&lt;Entity&gt;)</returns>
-        protected async Task<ApiResponse<List<EntityType>>> GetListAsyncWithHttpInfo(string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null)
+        protected async Task<ApiResponse<List<EntityType>>> GetListAsyncWithHttpInfo(string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
         {
             var localVarPath = GetEndpointPath() + "/" + GetEntityName();
 
             // make the HTTP request
             RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(localVarPath,
                 Method.Get, ComposeQueryParams(select, filter, expand, custom, skip, top), null, ComposeAcceptHeaders(HeaderContentType.Json), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.None));
+                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.None), cancellationToken: cancellationToken);
 
             VerifyResponse<EntityType>(localVarResponse, "GetList");
 
@@ -442,8 +445,9 @@ namespace Acumatica.RESTClient.Api
         /// <param name="filter">The conditions that determine which records should be selected from the system. (optional)</param>
         /// <param name="expand">The linked and detail entities that should be expanded. (optional)</param>
         /// <param name="custom">The fields that are not defined in the contract of the endpoint to be returned from the system. (optional)</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Task of ApiResponse (Entity)</returns>
-        protected async Task<ApiResponse<EntityType>> GetByIdAsyncWithHttpInfo(Guid? id, string select = null, string filter = null, string expand = null, string custom = null)
+        protected async Task<ApiResponse<EntityType>> GetByIdAsyncWithHttpInfo(Guid? id, string select = null, string filter = null, string expand = null, string custom = null, CancellationToken cancellationToken = default)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -454,7 +458,7 @@ namespace Acumatica.RESTClient.Api
             // make the HTTP request
             RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(localVarPath,
                 Method.Get, ComposeQueryParams(select, filter, expand, custom), null, ComposeAcceptHeaders(HeaderContentType.Json), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeIDPathParams(id), ComposeContentHeaders(HeaderContentType.None));
+                ComposeIDPathParams(id), ComposeContentHeaders(HeaderContentType.None), cancellationToken: cancellationToken);
 
             VerifyResponse<EntityType>(localVarResponse, "GetById");
 
@@ -496,14 +500,14 @@ namespace Acumatica.RESTClient.Api
 		/// </summary>
 		/// <exception cref="ApiException">Thrown when fails to make API call</exception>
 		/// <returns>Task of ApiResponse (Entity)</returns>
-		protected async Task<ApiResponse<EntityType>> GetAdHocSchemaAsyncWithHttpInfo()
+		protected async Task<ApiResponse<EntityType>> GetAdHocSchemaAsyncWithHttpInfo(CancellationToken cancellationToken = default)
         {
             var localVarPath = GetEndpointPath() + "/" + GetEntityName() + "/$adHocSchema";
 
             // make the HTTP request
             RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(localVarPath,
                 Method.Get, ComposeEmptyQueryParams(), null, ComposeAcceptHeaders(HeaderContentType.Json), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.None));
+                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.None), cancellationToken: cancellationToken);
 
             VerifyResponse<EntityType>(localVarResponse, "GetAdHocSchema");
 

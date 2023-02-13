@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Acumatica.Auth.Model;
@@ -110,13 +111,6 @@ namespace Acumatica.Auth.Api
         #endregion
 
         #region Login
-
-        public int TestMe()
-        {
-            return 666;
-        }
-        
-        
         /// <summary>
         /// Logs in to the system. 
         /// </summary>
@@ -147,6 +141,27 @@ namespace Acumatica.Auth.Api
         public Configuration LogIn(Credentials credentials)
         {
             AuthLoginWithHttpInfo(credentials);
+            var configuration = new Configuration(Configuration);
+
+            //share cookie container between API clients because we use different client for authentication and interaction with endpoint
+            configuration.ApiClient.RestClient.CookieContainer.Add(Configuration.ApiClient.RestClient.CookieContainer.GetCookies(new Uri(Configuration.BasePath)));
+            return configuration;
+        }
+
+        /// <summary>
+        /// Logs in to the system. 
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="credentials">
+        /// <see cref="Credentials"/> object that provides information required to log into the web service.
+        /// </param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>
+        /// <see cref="Configuration"></see> that is required to make subsequent REST API calls.
+        /// </returns>
+        public async Task<Configuration> LogInAsync(Credentials credentials, CancellationToken cancellationToken = default)
+        {
+            await AuthLoginAsyncWithHttpInfo(credentials, cancellationToken);
             var configuration = new Configuration(Configuration);
 
             //share cookie container between API clients because we use different client for authentication and interaction with endpoint
@@ -357,8 +372,9 @@ namespace Acumatica.Auth.Api
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="credentials"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Task of ApiResponse</returns>
-        protected async Task<ApiResponse> AuthLoginAsyncWithHttpInfo(Credentials credentials)
+        protected async Task<ApiResponse> AuthLoginAsyncWithHttpInfo(Credentials credentials, CancellationToken cancellationToken)
         {
             // verify the required parameter 'credentials' is set
             if (credentials == null)
@@ -369,7 +385,8 @@ namespace Acumatica.Auth.Api
             // make the HTTP request
             RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(localVarPath,
                 Method.Post, ComposeEmptyQueryParams(), ComposeBody(credentials), ComposeAcceptHeaders(HeaderContentType.None), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.Json | HeaderContentType.Xml | HeaderContentType.WwwForm));
+                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.Json | HeaderContentType.Xml | HeaderContentType.WwwForm), 
+                cancellationToken: cancellationToken);
 
             VerifyResponse(localVarResponse, "AuthLogin");
 

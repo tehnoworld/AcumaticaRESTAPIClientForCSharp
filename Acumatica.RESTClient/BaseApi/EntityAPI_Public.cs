@@ -101,10 +101,11 @@ namespace Acumatica.RESTClient.Api
         /// <param name="custom">The fields that are not defined in the contract of the endpoint to be returned from the system. (optional)</param>
         /// <param name="skip">The number of records to be skipped from the list of returned records. (optional)</param>
         /// <param name="top">The number of records to be returned from the system. (optional)</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Task of List&lt;Entity&gt;</returns>
-        public async Task<List<EntityType>> GetListAsync(string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null)
+        public async Task<List<EntityType>> GetListAsync(string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
         {
-            ApiResponse<List<EntityType>> localVarResponse = await GetListAsyncWithHttpInfo(select, filter, expand, custom, skip, top);
+            ApiResponse<List<EntityType>> localVarResponse = await GetListAsyncWithHttpInfo(select, filter, expand, custom, skip, top, cancellationToken: cancellationToken);
             return localVarResponse.Data;
 
         }
@@ -257,10 +258,11 @@ namespace Acumatica.RESTClient.Api
         /// <param name="filter">The conditions that determine which records should be selected from the system. (optional)</param>
         /// <param name="expand">The linked and detail entities that should be expanded. (optional)</param>
         /// <param name="custom">The fields that are not defined in the contract of the endpoint to be returned from the system. (optional)</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Task of Entity</returns>
-        public async Task<EntityType> GetByKeysAsync(IEnumerable<string> ids, string select = null, string filter = null, string expand = null, string custom = null)
+        public async Task<EntityType> GetByKeysAsync(IEnumerable<string> ids, string select = null, string filter = null, string expand = null, string custom = null, CancellationToken cancellationToken = default)
         {
-            ApiResponse<EntityType> localVarResponse = await GetByKeysAsyncWithHttpInfo(ids, select, filter, expand, custom);
+            ApiResponse<EntityType> localVarResponse = await GetByKeysAsyncWithHttpInfo(ids, select, filter, expand, custom, cancellationToken: cancellationToken);
             return localVarResponse.Data;
         }
 
@@ -307,10 +309,11 @@ namespace Acumatica.RESTClient.Api
         /// <param name="filter">The conditions that determine which records should be selected from the system. (optional)</param>
         /// <param name="expand">The linked and detail entities that should be expanded. (optional)</param>
         /// <param name="custom">The fields that are not defined in the contract of the endpoint to be returned from the system. (optional)</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Task of Entity</returns>
-        public async Task<EntityType> GetByIdAsync(Guid? id, string select = null, string filter = null, string expand = null, string custom = null)
+        public async Task<EntityType> GetByIdAsync(Guid? id, string select = null, string filter = null, string expand = null, string custom = null, CancellationToken cancellationToken = default)
         {
-            ApiResponse<EntityType> localVarResponse = await GetByIdAsyncWithHttpInfo(id, select, filter, expand, custom);
+            ApiResponse<EntityType> localVarResponse = await GetByIdAsyncWithHttpInfo(id, select, filter, expand, custom, cancellationToken: cancellationToken);
             return localVarResponse.Data;
         }
 
@@ -319,9 +322,9 @@ namespace Acumatica.RESTClient.Api
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of Entity</returns>
-        public async Task<EntityType> GetAdHocSchemaAsync()
+        public async Task<EntityType> GetAdHocSchemaAsync(CancellationToken cancellationToken = default)
         {
-            ApiResponse<EntityType> localVarResponse = await GetAdHocSchemaAsyncWithHttpInfo();
+            ApiResponse<EntityType> localVarResponse = await GetAdHocSchemaAsyncWithHttpInfo(cancellationToken: cancellationToken);
             return localVarResponse.Data;
         }
 
