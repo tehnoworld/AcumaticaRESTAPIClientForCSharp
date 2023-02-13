@@ -1,0 +1,25 @@
+name: Continuous Integration/Deployment
+on:
+  push:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and test
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setting up dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            7.0.x
+
+      - name: Restoring dependencies
+        run: dotnet restore
+
+      - name: Building Solution
+        run: dotnet build --no-restore
+
+      - name: Testing Solution
+        run:  dotnet test .\RESTClientTests\RESTClientTests.csproj --no-restore
