@@ -1,0 +1,22 @@
+name: Nuget Packer
+on:
+  push:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and publish
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setting up dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            7.0.x
+
+      - name: Building Project
+        run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
+
+      - name: Packing Project
+        run: dotnet pack --configuration Release .\Acumatica.RESTClient\AcumaticaXRP.RESTClient.csproj --version-suffix "build-${{ github.run_number }}"
