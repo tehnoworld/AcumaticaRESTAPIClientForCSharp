@@ -28,4 +28,7 @@ jobs:
         run: dotnet pack ./Acumatica.Default_20.200.001/AcumaticaXRP.Default_20.200.001.csproj --configuration Release --version-suffix "build-${{ github.run_number }}" --include-symbols --include-source --output ./nupkgs
 
       - name: Publishing Nuget Package AcumaticaXRP.RESTClient
-        run: dotnet nuget push ./nupkgs/AcumaticaXRP.Default_20.200.001.*.nupkg  --api-key ${{ secrets.NUGET_PUBLISH_TOKEN }} --source "https://nuget.pkg.github.com/tehnoworld/index.json"
+        run: dotnet nuget push ./nupkgs/AcumaticaXRP.RESTClient*.nupkg  --api-key ${{ secrets.NUGET_PUBLISH_TOKEN }} --source "https://nuget.pkg.github.com/tehnoworld/index.json"
+
+      - name: Publishing Nuget Package AcumaticaXRP.Default_20.200.001
+        run: dotnet nuget push ./nupkgs/AcumaticaXRP.Default*.nupkg  --api-key ${{ secrets.NUGET_PUBLISH_TOKEN }} --source "https://nuget.pkg.github.com/tehnoworld/index.json"
