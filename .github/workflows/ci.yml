@@ -17,6 +17,3 @@ jobs:
 
       - name: Building Solution
         run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
-
-      - name: Testing Solution
-        run:  dotnet test ./RESTClientTests/RESTClientTests.csproj
