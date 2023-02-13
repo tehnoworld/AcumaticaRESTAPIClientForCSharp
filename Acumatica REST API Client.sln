@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acumatica.RESTClient", "Acumatica.RESTClient\Acumatica.RESTClient.csproj", "{25008D3F-3D78-4BB9-B14B-0A792AE97892}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acumatica.RESTClient", "Acumatica.RESTClient\AcumaticaXRP.RESTClient.csproj", "{EB09AD90-FC6A-4AB1-A9AE-7C01EE200CF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcumaticaXRP.RESTClient", "Acumatica.RESTClient\AcumaticaXRP.RESTClient.csproj", "{EB09AD90-FC6A-4AB1-A9AE-7C01EE200CF1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Endpoints", "Endpoints", "{F0B2BD45-79AE-43AF-B737-3018CD95C6E3}"
 EndProject
