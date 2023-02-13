@@ -15,5 +15,8 @@ jobs:
           dotnet-version: |
             7.0.x
 
-      - name: Building Solution
+      - name: Building AcumaticaXRP.RESTClient
         run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
+
+      - name: Building AcumaticaXRP.Default_20.200.001
+        run: dotnet build ./Acumatica.Default_20.200.001/AcumaticaXRP.Default_20.200.001.csproj
