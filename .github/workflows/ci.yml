@@ -15,14 +15,8 @@ jobs:
           dotnet-version: |
             7.0.x
 
-      - name: Restoring dependencies
-        run: dotnet restore ./Acumatica\ REST\ API\ Client.sln
-
-      - name: Restoring dependencies (2)
-        run: dotnet restore ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
-
       - name: Building Solution
-        run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj  --no-restore
+        run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
 
       - name: Testing Solution
-        run:  dotnet test ./RESTClientTests/RESTClientTests.csproj --no-restore
+        run:  dotnet test ./RESTClientTests/RESTClientTests.csproj
