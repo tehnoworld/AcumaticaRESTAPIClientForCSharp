@@ -1,6 +1,6 @@
 name: Nuget Packer
 on:
-  push:
+  workflow_dispatch:
     
 jobs:
   build:
@@ -18,5 +18,14 @@ jobs:
       - name: Building Project
         run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
 
-      - name: Packing Project
-        run: dotnet pack --configuration Release .\Acumatica.RESTClient\AcumaticaXRP.RESTClient.csproj --version-suffix "build-${{ github.run_number }}"
+      - name: Creating Nuget Package
+        run: dotnet pack --configuration Release \
+          --include-symbols --include-source \
+          --version-suffix "build-${{ github.run_number }}" \
+          --output ./nupkgs \
+          ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
+      
+      - name: Publishing Nuget Package
+        run: dotnet nuget push ./nupkgs/AcumaticaXRP.RESTClient.*.nupkg  \
+          --api-key ${{ secrets.NUGET_PUBLISH_TOKEN }} \
+          --source "https://nuget.pkg.github.com/tehnoworld/index.json"
