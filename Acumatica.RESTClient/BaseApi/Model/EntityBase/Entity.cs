@@ -22,13 +22,16 @@ namespace Acumatica.RESTClient.Model
             get
             {
                 List<CustomField> customFields = new List<CustomField>();
-                foreach (var view in Custom)
+                if (Custom != null)
                 {
-                    foreach (var field in view.Value)
+                    foreach (var view in Custom)
                     {
-                        field.Value.fieldName = field.Key;
-                        field.Value.viewName = view.Key;
-                        customFields.Add(field.Value);
+                        foreach (var field in view.Value)
+                        {
+                            field.Value.fieldName = field.Key;
+                            field.Value.viewName = view.Key;
+                            customFields.Add(field.Value);
+                        }
                     }
                 }
                 return customFields.ToArray();
@@ -74,7 +77,9 @@ namespace Acumatica.RESTClient.Model
         public string Error { get; set; }
 
         /// <summary>
-        /// Gets or Sets Custom
+        /// Dictionary containing ViewName as a key. 
+        /// The value in the Dictionary is another Dictionary that contains 
+        /// FieldName as Key.
         /// </summary>
         [DataMember(Name="custom", EmitDefaultValue=false)]
         public Dictionary<string, Dictionary<string, CustomField>> Custom { get; set; }

@@ -103,9 +103,12 @@ namespace Acumatica.RESTClient.Api
         /// <param name="top">The number of records to be returned from the system. (optional)</param>
         /// <param name="cancellationToken"></param>
         /// <returns>Task of List&lt;Entity&gt;</returns>
-        public async Task<List<EntityType>> GetListAsync(string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
+        public async Task<List<EntityType>> GetListAsync(
+            string select = null, string filter = null, string expand = null, string custom = null, 
+            int? skip = null, int? top = null, Dictionary<string, string> customHeaders = null, 
+            CancellationToken cancellationToken = default)
         {
-            ApiResponse<List<EntityType>> localVarResponse = await GetListAsyncWithHttpInfo(select, filter, expand, custom, skip, top, cancellationToken: cancellationToken);
+            ApiResponse<List<EntityType>> localVarResponse = await GetListAsyncWithHttpInfo(select, filter, expand, custom, skip, top, customHeaders, cancellationToken: cancellationToken);
             return localVarResponse.Data;
 
         }
@@ -195,7 +198,7 @@ namespace Acumatica.RESTClient.Api
         {
             PutFileWithHttpInfo(new List<string>() { id }, filename, content);
         }
-        public async System.Threading.Tasks.Task PutFileAsync(string id, string filename, byte[] content)
+        public async Task PutFileAsync(string id, string filename, byte[] content)
         {
             await PutFileAsyncWithHttpInfo(new List<string>() { id }, filename, content);
         }
@@ -217,7 +220,7 @@ namespace Acumatica.RESTClient.Api
         /// <param name="ids">The values of the key fields of the record.</param>
         /// <param name="filename">The name of the file that you are going to attach with the extension.</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task PutFileAsync(IEnumerable<string> ids, string filename, byte[] content)
+        public async Task PutFileAsync(IEnumerable<string> ids, string filename, byte[] content)
         {
             await PutFileAsyncWithHttpInfo(ids, filename, content);
         }
@@ -277,9 +280,11 @@ namespace Acumatica.RESTClient.Api
         /// <param name="skip">The number of records to be skipped from the list of returned records. (optional)</param>
         /// <param name="top">The number of records to be returned from the system. (optional)</param>
         /// <returns>List&lt;Entity&gt;</returns>
-        public List<EntityType> GetList(string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null)
+        public List<EntityType> GetList(
+            string select = null, string filter = null, string expand = null, string custom = null, 
+            int? skip = null, int? top = null, Dictionary<string, string> customHeaders = null)
         {
-            ApiResponse<List<EntityType>> localVarResponse = GetListWithHttpInfo(select, filter, expand, custom, skip, top);
+            ApiResponse<List<EntityType>> localVarResponse = GetListWithHttpInfo(select, filter, expand, custom, skip, top, customHeaders);
             return localVarResponse.Data;
         }
 

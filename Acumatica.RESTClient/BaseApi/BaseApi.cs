@@ -140,6 +140,7 @@ namespace Acumatica.RESTClient.Api
             }
             set { _exceptionFactory = value; }
         }
+        [Obsolete("You can just send null")]
         protected Dictionary<string, FileParameter> ComposeEmptyFileParams()
         {
             return new Dictionary<String, FileParameter>();
@@ -148,6 +149,7 @@ namespace Acumatica.RESTClient.Api
         {
             return new List<KeyValuePair<String, String>>();
         }
+        [Obsolete ("You can just send null")]
         protected Dictionary<string, string> ComposeEmptyPathParams()
         {
             return new Dictionary<String, String>();
@@ -212,8 +214,13 @@ namespace Acumatica.RESTClient.Api
         private static Dictionary<string, string> GetHeadersExceptCookies(RestResponse response)
         {
             return response.Headers
-                            .Where(x => x.Name != "Set-Cookie")
-                            .ToDictionary(x => x.Name, x => x.Value.ToString());
+                            .Where(header => header.Name != "Set-Cookie")
+                            .GroupBy(header => header.Name, StringComparer.OrdinalIgnoreCase)
+                            //Accodring to HTTP RFC2616 standard, we need to combine values of the same headers into comma separated list
+                            .ToDictionary(
+                                g => g.Key,
+                                g => string.Join(",", g.Select(header => header.Value)),
+                                StringComparer.OrdinalIgnoreCase);
         }
 
         protected void VerifyResponse<T>(RestResponse response, string methodName)

@@ -237,8 +237,8 @@ namespace Acumatica.Auth.Api
                 }),
                 ComposeAcceptHeaders(HeaderContentType.None),
                 ComposeEmptyFormParams(),
-                ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(),
+                null,
+                null,
                 ComposeContentHeaders(HeaderContentType.WwwForm)).Result;
 
             VerifyResponse(localVarResponse, "RefreshToken");
@@ -266,8 +266,8 @@ namespace Acumatica.Auth.Api
                 }),
                 ComposeAcceptHeaders(HeaderContentType.None),
                 ComposeEmptyFormParams(),
-                ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(),
+                null,
+                null,
                 ComposeContentHeaders(HeaderContentType.WwwForm)).Result;
 
             VerifyResponse(localVarResponse, "RequestToken");
@@ -292,8 +292,8 @@ namespace Acumatica.Auth.Api
                 string.Empty,
                 ComposeAcceptHeaders(HeaderContentType.None),
                 ComposeEmptyFormParams(),
-                ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(),
+                null,
+                null,
                 ComposeContentHeaders(HeaderContentType.WwwForm)).Result;
 
             VerifyResponse(localVarResponse, "RequestToken");
@@ -321,8 +321,8 @@ namespace Acumatica.Auth.Api
                 }),
                 ComposeAcceptHeaders(HeaderContentType.None),
                 ComposeEmptyFormParams(),
-                ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(),
+                null,
+                null,
                 ComposeContentHeaders(HeaderContentType.WwwForm)).Result;
 
             VerifyResponse(localVarResponse, "RequestToken");
@@ -351,16 +351,19 @@ namespace Acumatica.Auth.Api
         /// <returns>ApiResponse of Object(void)</returns>
         protected ApiResponse AuthLoginWithHttpInfo(Credentials credentials)
         {
-            // verify the required parameter 'credentials' is set
             if (credentials == null)
                 ThrowMissingParameter("AuthLogin", nameof(credentials));
 
-            var localVarPath = "/entity/auth/login";
-
-            // make the HTTP request
-            RestResponse localVarResponse = (RestResponse)Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.Post, ComposeEmptyQueryParams(), ComposeBody(credentials), ComposeAcceptHeaders(HeaderContentType.None), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.Json | HeaderContentType.Xml | HeaderContentType.WwwForm)).Result;
+            RestResponse localVarResponse = Configuration.ApiClient.CallApiAsync(
+                "/entity/auth/login",
+                Method.Post, 
+                ComposeEmptyQueryParams(), 
+                ComposeBody(credentials), 
+                ComposeAcceptHeaders(HeaderContentType.None), 
+                null, 
+                null,
+                null, 
+                ComposeContentHeaders(HeaderContentType.Json | HeaderContentType.Xml | HeaderContentType.WwwForm)).Result;
 
             VerifyResponse(localVarResponse, "AuthLogin");
 
@@ -376,16 +379,19 @@ namespace Acumatica.Auth.Api
         /// <returns>Task of ApiResponse</returns>
         protected async Task<ApiResponse> AuthLoginAsyncWithHttpInfo(Credentials credentials, CancellationToken cancellationToken)
         {
-            // verify the required parameter 'credentials' is set
             if (credentials == null)
                 ThrowMissingParameter("AuthLogin", nameof(credentials));
 
-            var localVarPath = "/entity/auth/login";
-
-            // make the HTTP request
-            RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.Post, ComposeEmptyQueryParams(), ComposeBody(credentials), ComposeAcceptHeaders(HeaderContentType.None), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.Json | HeaderContentType.Xml | HeaderContentType.WwwForm), 
+            RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(
+                "/entity/auth/login",
+                Method.Post, 
+                ComposeEmptyQueryParams(), 
+                ComposeBody(credentials), 
+                ComposeAcceptHeaders(HeaderContentType.None), 
+                ComposeEmptyFormParams(), 
+                null,
+                null, 
+                ComposeContentHeaders(HeaderContentType.Json | HeaderContentType.Xml | HeaderContentType.WwwForm), 
                 cancellationToken: cancellationToken);
 
             VerifyResponse(localVarResponse, "AuthLogin");
@@ -400,12 +406,17 @@ namespace Acumatica.Auth.Api
         /// <returns>ApiResponse of Object(void)</returns>
         protected ApiResponse AuthLogoutWithHttpInfo()
         {
-            var localVarPath = "/entity/auth/logout";
 
-            // make the HTTP request
-            RestResponse localVarResponse = Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.Post, ComposeEmptyQueryParams(), null, ComposeAcceptHeaders(HeaderContentType.None), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.None)).Result;
+            RestResponse localVarResponse = Configuration.ApiClient.CallApiAsync(
+                "/entity/auth/logout",
+                Method.Post, 
+                ComposeEmptyQueryParams(), 
+                null, 
+                ComposeAcceptHeaders(HeaderContentType.None), 
+                ComposeEmptyFormParams(), 
+                null,
+                null, 
+                ComposeContentHeaders(HeaderContentType.None)).Result;
 
             VerifyResponse(localVarResponse, "AuthLogout");
 
@@ -419,12 +430,17 @@ namespace Acumatica.Auth.Api
         /// <returns>Task of ApiResponse</returns>
         protected async Task<ApiResponse> AuthLogoutAsyncWithHttpInfo()
         {
-            var localVarPath = "/entity/auth/logout";
 
-            // make the HTTP request
-            RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.Post, ComposeEmptyQueryParams(), null, ComposeAcceptHeaders(HeaderContentType.None), ComposeEmptyFormParams(), ComposeEmptyFileParams(),
-                ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.None));
+            RestResponse localVarResponse = await Configuration.ApiClient.CallApiAsync(
+                "/entity/auth/logout",
+                Method.Post, 
+                ComposeEmptyQueryParams(),
+                null,
+                ComposeAcceptHeaders(HeaderContentType.None),
+                ComposeEmptyFormParams(), 
+                null,
+                null, 
+                ComposeContentHeaders(HeaderContentType.None));
 
             VerifyResponse(localVarResponse, "AuthLogout");
 
