@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>AcumaticaXRP.RESTClient.ODataApi</PackageId>
-    <VersionPrefix>3.100.100</VersionPrefix>
+    <VersionPrefix>3.103.100</VersionPrefix>
     <Title>Acumatica REST API for Accessing OData</Title>
     <Authors>Dmitrii-Naumov; TehnoWorld</Authors>
     <Company>Acumatica</Company>

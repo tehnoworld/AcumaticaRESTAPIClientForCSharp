@@ -3,7 +3,7 @@
   <PropertyGroup>
 	<TargetFramework>netstandard2.0</TargetFramework>
   	<PackageId>AcumaticaXRP.Default_20.200.001</PackageId>
-  	<VersionPrefix>2.100.100</VersionPrefix>
+  	<VersionPrefix>2.102.101</VersionPrefix>
 	<Company>Acumatica</Company>
 	<Description>C# classes generated based on Acumatica Default endpoint version 20.200.001</Description>
 	<Copyright>Acumatica</Copyright>
