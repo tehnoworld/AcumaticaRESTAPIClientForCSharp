@@ -23,7 +23,7 @@ namespace Acumatica.RESTClient.ODataApi
             return GetOData("$metadata");
         }
         
-        public ApiResponse<string> GetOData(string resource, string select = null, string filter = null, string expand = null, int? skip = null, int? top = null)
+        public ApiResponse<string> GetOData(string resource, string select = null, string filter = null, string expand = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (Configuration.Token == null && (Configuration.Username == null && Configuration.Password == null))
             {
@@ -46,7 +46,8 @@ namespace Acumatica.RESTClient.ODataApi
                 ComposeEmptyFormParams(), 
                 null, 
                 null, 
-                ComposeContentHeaders(HeaderContentType.Json)
+                ComposeContentHeaders(HeaderContentType.Json),
+                cancellationToken: cancellationToken
             ).Result;
 
             VerifyResponse(response, nameof(GetOData));
