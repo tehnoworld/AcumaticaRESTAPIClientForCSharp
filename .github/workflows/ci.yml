@@ -13,13 +13,17 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: |
-            7.0.x
+            7.0.102
+
+      # https://github.com/actions/setup-dotnet/issues/383
+      - name: Remove faulty SDK version
+        run: sudo rm -rf /usr/share/dotnet/sdk/7.0.2*
 
       - name: Building AcumaticaXRP.RESTClient
         run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
 
       - name: Building AcumaticaXRP.RESTClient.ODataApi
-        run: dotnet build ./Acumatica.RESTClient.ODataApi/AcumaticaXRP.RESTClient.ODataApi.csproj
+        run: dotnet build ./Acumatica.RESTClient.OData/AcumaticaXRP.RESTClient.ODataApi.csproj
 
       - name: Building AcumaticaXRP.Default_20.200.001
         run: dotnet build ./Acumatica.Default_20.200.001/AcumaticaXRP.Default_20.200.001.csproj
