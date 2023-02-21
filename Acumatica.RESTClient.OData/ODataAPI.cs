@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Acumatica.RESTClient.Api;
 using Acumatica.RESTClient.Client;
 
@@ -18,12 +19,24 @@ namespace Acumatica.RESTClient.ODataApi
             Version = version;
             Tenant = tenant;
         }
-        public ApiResponse<string> GetMetadata()
+        
+        public Task<ApiResponse<string>> GetMetadataAsync(CancellationToken cancellationToken = default)
         {
-            return GetOData("$metadata");
+            return GetOData("$metadata", cancellationToken: cancellationToken);
         }
         
-        public ApiResponse<string> GetOData(string resource, string select = null, string filter = null, string expand = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
+        public Task<ApiResponse<string>> GetMetadata(CancellationToken cancellationToken = default)
+        {
+            return GetOData("$metadata", cancellationToken: cancellationToken);
+        }
+
+        public Task<ApiResponse<string>> GetODataAsync(string resource, string select = null, string filter = null,
+            string expand = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
+        {
+            return GetOData(resource, select, filter, expand, skip, top, cancellationToken);
+        }
+
+        public async Task<ApiResponse<string>> GetOData(string resource, string select = null, string filter = null, string expand = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
         {
             if (Configuration.Token == null && (Configuration.Username == null && Configuration.Password == null))
             {
@@ -37,7 +50,7 @@ namespace Acumatica.RESTClient.ODataApi
             }
 
             //Oauth authentication
-            RestResponse response = Configuration.ApiClient.CallApiAsync(
+            RestResponse response = await Configuration.ApiClient.CallApiAsync(
                 ConfigurePath(resource), 
                 Method.Get, 
                 ComposeQueryParams(select, filter, expand, null, skip, top), 
@@ -48,7 +61,7 @@ namespace Acumatica.RESTClient.ODataApi
                 null, 
                 ComposeContentHeaders(HeaderContentType.Json),
                 cancellationToken: cancellationToken
-            ).Result;
+            );
 
             VerifyResponse(response, nameof(GetOData));
             return DeserializeResponse<string>(response);
