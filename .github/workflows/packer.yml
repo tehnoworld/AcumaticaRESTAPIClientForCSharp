@@ -17,18 +17,27 @@ jobs:
 
       - name: Building AcumaticaXRP.RESTClient
         run:  dotnet build ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj
-      
+
+      - name: Building AcumaticaXRP.RESTClient.ODataApi
+        run: dotnet build ./Acumatica.RESTClient.ODataApi/AcumaticaXRP.RESTClient.ODataApi.csproj
+
       - name: Building AcumaticaXRP.Default_20.200.001
         run: dotnet build ./Acumatica.Default_20.200.001/AcumaticaXRP.Default_20.200.001.csproj
         
       - name: Creating Nuget Package for AcumaticaXRP.RESTClient
         run: dotnet pack ./Acumatica.RESTClient/AcumaticaXRP.RESTClient.csproj --configuration Release --version-suffix "build-${{ github.run_number }}" --include-symbols --include-source --output ./nupkgs
 
+      - name: Creating Nuget Package for AcumaticaXRP.RESTClient.ODataApi
+        run: dotnet pack ./Acumatica.RESTClient.ODataApi/AcumaticaXRP.RESTClient.ODataApi.csproj --configuration Release --version-suffix "build-${{ github.run_number }}" --include-symbols --include-source --output ./nupkgs
+
       - name: Creating Nuget Package for AcumaticaXRP.Default_20.200.001
         run: dotnet pack ./Acumatica.Default_20.200.001/AcumaticaXRP.Default_20.200.001.csproj --configuration Release --version-suffix "build-${{ github.run_number }}" --include-symbols --include-source --output ./nupkgs
 
       - name: Publishing Nuget Package AcumaticaXRP.RESTClient
         run: dotnet nuget push ./nupkgs/AcumaticaXRP.RESTClient*.nupkg  --api-key ${{ secrets.NUGET_PUBLISH_TOKEN }} --source "https://nuget.pkg.github.com/tehnoworld/index.json" --skip-duplicate
+
+      - name: Publishing Nuget Package AcumaticaXRP.RESTClient.ODataApi
+        run: dotnet nuget push ./nupkgs/AcumaticaXRP.RESTClient.ODataApi*.nupkg  --api-key ${{ secrets.NUGET_PUBLISH_TOKEN }} --source "https://nuget.pkg.github.com/tehnoworld/index.json" --skip-duplicate
 
       - name: Publishing Nuget Package AcumaticaXRP.Default_20.200.001
         run: dotnet nuget push ./nupkgs/AcumaticaXRP.Default*.nupkg  --api-key ${{ secrets.NUGET_PUBLISH_TOKEN }} --source "https://nuget.pkg.github.com/tehnoworld/index.json" --skip-duplicate

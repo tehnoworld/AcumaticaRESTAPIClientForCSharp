@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading;
 using Acumatica.RESTClient.Api;
 using Acumatica.RESTClient.Client;
 
@@ -22,7 +22,7 @@ namespace Acumatica.RESTClient.ODataApi
         }
       
        
-        public ApiResponse<string> Get(string resource = null, string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null)
+        public ApiResponse<string> Get(string resource = null, string select = null, string filter = null, string expand = null, string custom = null, int? skip = null, int? top = null, CancellationToken cancellationToken = default)
         {
             var path = ConfigureResourcePath(ConfigurePath(), resource);
 
@@ -38,7 +38,7 @@ namespace Acumatica.RESTClient.ODataApi
             }
             
             //Oauth authentication
-            RestResponse response = (RestResponse)Configuration.ApiClient.CallApiAsync(path, Method.Get, ComposeQueryParams(select, filter, expand, custom, skip, top), null, ComposeAcceptHeaders(HeaderContentType.Json), ComposeEmptyFormParams(), ComposeEmptyFileParams(), ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.Json)).Result;         
+            RestResponse response = (RestResponse)Configuration.ApiClient.CallApiAsync(path, Method.Get, ComposeQueryParams(select, filter, expand, custom, skip, top), null, ComposeAcceptHeaders(HeaderContentType.Json), ComposeEmptyFormParams(), ComposeEmptyFileParams(), ComposeEmptyPathParams(), ComposeContentHeaders(HeaderContentType.Json), cancellationToken).Result;         
             return DeserializeResponse<string>(response);
         }
 
