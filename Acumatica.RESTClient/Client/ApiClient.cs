@@ -42,6 +42,14 @@ namespace Acumatica.RESTClient.Client
             RestClient = new RestClient(options);
         }
 
+        public ApiClient(Configuration config, IList<JsonConverter> converters): this(config)
+        {
+            foreach (var thisConverter in converters)
+            {
+                serializerSettings.Converters.Add(thisConverter);
+            }
+        }
+
         /// <summary>
         /// Gets or sets an instance of the <see cref="Configuration"/>.
         /// </summary>
