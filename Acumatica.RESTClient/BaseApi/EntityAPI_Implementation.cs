@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -472,6 +473,21 @@ namespace Acumatica.RESTClient.Api
             VerifyResponse<EntityType>(localVarResponse, "GetById");
 
             return DeserializeResponse<EntityType>(localVarResponse);
+        }
+
+        protected async Task<Stream> GetFileAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            var acceptHeaders = new Dictionary<string, string>
+            {
+                { "Accept", "application/octet-stream" }
+            };
+        
+            var response = await Configuration.ApiClient.DownloadStreamAsync($"{GetEndpointPath()}/files/{id}", Method.Get,
+                ComposeEmptyQueryParams(), (object)null, acceptHeaders,
+                ComposeEmptyFormParams(), (Dictionary<string, FileParameter>)null, (Dictionary<string, string>)null,
+                "application/json", cancellationToken);
+
+            return response;
         }
 		#endregion
 

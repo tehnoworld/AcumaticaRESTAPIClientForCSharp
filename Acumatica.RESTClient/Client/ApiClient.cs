@@ -106,6 +106,48 @@ namespace Acumatica.RESTClient.Client
 
             return response;
         }
+        
+                /// <summary>
+        /// Makes the asynchronous HTTP request.
+        /// </summary>
+        /// <param name="path">URL path.</param>
+        /// <param name="method">HTTP method.</param>
+        /// <param name="queryParams">Query parameters.</param>
+        /// <param name="postBody">HTTP body (POST request).</param>
+        /// <param name="headerParams">Header parameters.</param>
+        /// <param name="formParams">Form parameters.</param>
+        /// <param name="fileParams">File parameters.</param>
+        /// <param name="pathParams">Path parameters.</param>
+        /// <param name="contentType">Content type.</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>The Task instance.</returns>
+        public async Task<Stream> DownloadStreamAsync(
+            String path, Method method, List<KeyValuePair<String, String>> queryParams, Object postBody,
+            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
+            Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
+            String contentType, CancellationToken cancellationToken = default)
+        {
+            if (Configuration.Token != null)
+            {
+                if (headerParams == null)
+                {
+                    headerParams = new Dictionary<String, String>();
+                }
+                headerParams.Add("Authorization", Configuration.Token.Token_type + " " + Configuration.Token.Access_token);
+            }
+
+            var request = PrepareRequest(
+                path, method, queryParams, postBody, headerParams, formParams, fileParams,
+                pathParams, contentType, Configuration.Timeout);
+
+            if (Configuration.RequestInterceptor != null)
+                Configuration.RequestInterceptor(request, this.RestClient);
+            var response = await RestClient.DownloadStreamAsync(request, cancellationToken: cancellationToken);
+            if (Configuration.ResponseInterceptor != null)
+                Configuration.ResponseInterceptor(request, new RestResponse(), this.RestClient);
+
+            return response;
+        }
 
 
         /// <summary>
